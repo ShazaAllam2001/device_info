@@ -15,38 +15,6 @@ class _MyHomePageState extends State<MyHomePage> {
   String osVersion = "";
 
   @override
-  void initState() {
-    super.initState();
-    _getDeviceInfo();
-  }
-
-  _getDeviceInfo() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    try {
-      if (Theme.of(context).platform == TargetPlatform.iOS) {
-        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-        setState(() {
-          deviceModel = iosInfo.utsname.machine;
-          osVersion = iosInfo.systemVersion;
-        });
-      } 
-      else if (Theme.of(context).platform == TargetPlatform.android) {
-        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-        setState(() {
-          deviceModel = androidInfo.model;
-          osVersion = androidInfo.version.release;
-        });
-      }
-    }
-    catch (e) {
-      setState(() {
-        deviceModel = 'Failed to get device info';
-        osVersion = 'Failed to get OS version';
-      });
-    }
-  }  
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -68,6 +36,34 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+          try {
+            if (Theme.of(context).platform == TargetPlatform.iOS) {
+              IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+              setState(() {
+                deviceModel = iosInfo.utsname.machine;
+                osVersion = iosInfo.systemVersion;
+              });
+            } 
+            else if (Theme.of(context).platform == TargetPlatform.android) {
+              AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+              setState(() {
+                deviceModel = androidInfo.model;
+                osVersion = androidInfo.version.release;
+              });
+            }
+          }
+          catch (e) {
+            setState(() {
+              deviceModel = 'Failed to get device info';
+              osVersion = 'Failed to get OS version';
+            });
+          }
+        },
+        child: Icon(Icons.devices)
       ),
     );
   }
