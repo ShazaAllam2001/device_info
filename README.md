@@ -6,4 +6,4 @@ A project for accessing device info like device model and os version handeled to
 [Device Info Plus](https://pub.dev/packages/device_info_plus) to be able to access device info.
 
 ## Screenshots
-[Screenshots Folder](https://github.com/ShazaAllam2001/device_info/output)
+[Screenshots Folder](https://github.com/ShazaAllam2001/device_info/tree/main/output)
